@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>晨晨家乐高我的世界收藏总览</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+    font-size: 2em;
+    margin: 20px 0 10px;
+    color: #7ec850;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  }
+  .subtitle {
+    text-align: center;
+    color: #aaa;
+    margin-bottom: 10px;
+    font-size: 0.95em;
+  }
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin: 15px 0 25px;
+    padding: 15px;
+    background: #16213e;
+    border-radius: 12px;
+    border: 1px solid #0f3460;
+  }
+  .stat-item {
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 2em;
+    font-weight: bold;
+    color: #7ec850;
+  }
+  .stat-num.red { color: #ff6b6b; }
+  .stat-num.orange { color: #ffa502; }
+  .stat-num.blue { color: #54a0ff; }
+  .stat-num.purple { color: #c56cf0; }
+  .stat-label {
+    font-size: 0.85em;
+    color: #888;
+  }
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    font-size: 0.85em;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .section-title {
+    font-size: 1.4em;
+    color: #54a0ff;
+    margin: 30px 0 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #0f3460;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+  .card {
+    background: #16213e;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #0f3460;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  }
+  .card.retired { border-color: #e74c3c; }
+  .card.owned { border-color: #7ec850; }
+  .card.not-owned { border-color: #555; opacity: 0.6; }
+  .card.not-owned:hover { opacity: 0.9; }
+  .card-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: contain;
+    background: #fff;
+    padding: 8px;
+  }
+  .card-body {
+    padding: 12px 14px;
+  }
+  .card-set-id {
+    font-size: 0.8em;
+    color: #888;
+    margin-bottom: 2px;
+  }
+  .card-title {
+    font-size: 1.05em;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75em;
+    font-weight: bold;
+  }
+  .badge-year { background: #0f3460; color: #54a0ff; }
+  .badge-pieces { background: #1a3a1a; color: #7ec850; }
+  .badge-retired { background: #5c1a1a; color: #ff6b6b; }
+  .badge-available { background: #1a3a1a; color: #7ec850; }
+  .badge-assembled { background: #1a3a3a; color: #00d2d3; }
+  .badge-not-assembled { background: #3a3a1a; color: #ffa502; }
+  .badge-not-owned { background: #333; color: #999; }
+  .badge-counterfeit { background: #3a1a3a; color: #c56cf0; }
+  .badge-unknown { background: #2a2a1a; color: #bbb; }
+  .price-row {
+    margin-top: 6px;
+  }
+  .price-original {
+    color: #ff4757;
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+  .price-resale {
+    color: #ffa502;
+    font-size: 0.9em;
+    margin-top: 3px;
+  }
+  .premium {
+    color: #ff6b6b;
+    font-weight: bold;
+  }
+  .ribbon {
+    position: absolute;
+    top: 12px;
+    right: -30px;
+    background: #e74c3c;
+    color: #fff;
+    padding: 3px 35px;
+    font-size: 0.7em;
+    font-weight: bold;
+    transform: rotate(45deg);
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  }
+  .ribbon.green {
+    background: #27ae60;
+  }
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0 30px;
+    font-size: 0.9em;
+  }
+  .summary-table th {
+    background: #0f3460;
+    color: #54a0ff;
+    padding: 10px 8px;
+    text-align: left;
+    position: sticky;
+    top: 0;
+  }
+  .summary-table td {
+    padding: 8px;
+    border-bottom: 1px solid #1a2a4e;
+  }
+  .summary-table tr:hover {
+    background: #1a2a4e;
+  }
+  .summary-table .price-cell {
+    color: #ff4757;
+    font-weight: bold;
+  }
+  .summary-table .resale-cell {
+    color: #ffa502;
+    font-weight: bold;
+  }
+  .total-value {
+    text-align: center;
+    font-size: 1.3em;
+    padding: 20px;
+    background: linear-gradient(135deg, #16213e, #0f3460);
+    border-radius: 12px;
+    margin: 20px 0;
+  }
+  .total-value .amount {
+    color: #ff4757;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  .filter-bar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 6px 16px;
+    border: 1px solid #0f3460;
+    border-radius: 20px;
+    background: #16213e;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: #0f3460;
+    color: #54a0ff;
+    border-color: #54a0ff;
+  }
+  footer {
+    text-align: center;
+    color: #555;
+    font-size: 0.8em;
+    margin-top: 40px;
+    padding: 20px 0;
+    border-top: 1px solid #0f3460;
+  }
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+    .stats-bar { gap: 15px; }
+    h1 { font-size: 1.5em; }
+  }
+</style>
+</head>
+<body>
+
+<h1>晨晨家乐高我的世界收藏总览</h1>
+<p class="subtitle">LEGO Minecraft Collection Overview · 更新于 2026年4月29日</p>
+
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num" id="totalOwned">--</div>
+    <div class="stat-label">拥有套装</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num red" id="totalRetired">--</div>
+    <div class="stat-label">绝版款式</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num orange" id="totalNotBuilt">--</div>
+    <div class="stat-label">可能未拼</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num blue" id="totalNotOwned">--</div>
+    <div class="stat-label">未购入</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num purple" id="totalValue">--</div>
+    <div class="stat-label">原价总值 (¥)</div>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><span class="legend-dot" style="background:#7ec850"></span> 已拥有</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#e74c3c"></span> 绝版</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#00d2d3"></span> 已拼好</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#ffa502"></span> 可能未拼</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#555"></span> 未购入</div>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterCards('all')">全部</button>
+  <button class="filter-btn" onclick="filterCards('owned')">已拥有</button>
+  <button class="filter-btn" onclick="filterCards('retired')">绝版</button>
+  <button class="filter-btn" onclick="filterCards('not-built')">可能未拼</button>
+  <button class="filter-btn" onclick="filterCards('not-owned')">未购入</button>
+</div>
+
+<div class="grid" id="cardGrid"></div>
+
+<h2 class="section-title">绝版套装二手溢价估算</h2>
+<p style="color:#888;margin-bottom:10px;font-size:0.85em;">* 以下为2026年4月基于BrickLink/闲鱼市场数据的估算，全新未拆封价格，实际价格波动较大</p>
+
+<div style="overflow-x:auto;">
+<table class="summary-table" id="resaleTable">
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>年份</th>
+      <th>原价 (¥)</th>
+      <th>估计二手价 (¥)</th>
+      <th>溢价倍数</th>
+      <th>拥有</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+</div>
+
+<div class="total-value" id="totalValueSection"></div>
+
+<footer>
+  数据来源：乐高官方 · BrickLink · 闲鱼市场估算 · 生成时间 2026-04-29
+</footer>
+
+<script>
+const sets = [
+  // 2014
+  { id: "21115", name: "初夜", nameEn: "The First Night", year: 2014, pieces: 408, priceCNY: 287, retired: true, owned: true, assembled: null, resaleLow: 870, resaleHigh: 1450 },
+  // 2018
+  { id: "21140", name: "鸡舍", nameEn: "The Chicken Coop", year: 2018, pieces: 198, priceCNY: 143, retired: true, owned: true, assembled: true, resaleLow: 250, resaleHigh: 400 },
+  // 2019
+  { id: "21148", name: "史蒂夫与鹦鹉", nameEn: "Steve BigFig with Parrot", year: 2019, pieces: 159, priceCNY: 107, retired: true, owned: true, assembled: null, resaleLow: 180, resaleHigh: 330 },
+  { id: "21153", name: "羊毛农场", nameEn: "The Wool Farm", year: 2019, pieces: 260, priceCNY: 143, retired: true, owned: true, assembled: null, resaleLow: 250, resaleHigh: 400 },
+  // 2020
+  { id: "21156", name: "苦力怕与豹猫", nameEn: "BigFig Creeper and Ocelot", year: 2020, pieces: 184, priceCNY: 107, retired: true, owned: true, assembled: null, resaleLow: 180, resaleHigh: 300 },
+  { id: "21157", name: "猪与僵尸", nameEn: "BigFig Pig with Baby Zombie", year: 2020, pieces: 159, priceCNY: 107, retired: true, owned: true, assembled: null, resaleLow: 180, resaleHigh: 300 },
+  { id: "21162", name: "针叶林大冒险", nameEn: "The Taiga Adventure", year: 2020, pieces: 74, priceCNY: 71, retired: true, owned: true, assembled: null, resaleLow: 120, resaleHigh: 200 },
+  { id: "21165", name: "养蜂场", nameEn: "The Bee Farm", year: 2020, pieces: 229, priceCNY: 143, retired: true, owned: true, assembled: null, resaleLow: 200, resaleHigh: 350 },
+  { id: "21166", name: "废弃矿井", nameEn: "The 'Abandoned' Mine", year: 2020, pieces: 242, priceCNY: 143, retired: true, owned: false, assembled: null, note: "暂时没买", resaleLow: 200, resaleHigh: 350 },
+  // 2021
+  { id: "21172", name: "废弃传送门", nameEn: "The Ruined Portal", year: 2021, pieces: 305, priceCNY: 215, retired: true, owned: true, assembled: false, resaleLow: 300, resaleHigh: 500 },
+  // 2022
+  { id: "21177", name: "苦力怕埋伏", nameEn: "The Creeper Ambush", year: 2022, pieces: 72, priceCNY: 71, retired: true, owned: true, assembled: null, resaleLow: 100, resaleHigh: 160 },
+  { id: "21179", name: "蘑菇屋", nameEn: "The Mushroom House", year: 2022, pieces: 272, priceCNY: 143, retired: true, owned: true, assembled: false, resaleLow: 200, resaleHigh: 350 },
+  { id: "21183", name: "训练场", nameEn: "The Training Grounds", year: 2022, pieces: 522, priceCNY: 431, retired: true, owned: false, assembled: null, note: "没有", resaleLow: 550, resaleHigh: 800 },
+  { id: "21184", name: "面包店", nameEn: "The Bakery", year: 2022, pieces: 143, priceCNY: 179, retired: true, owned: false, assembled: null, note: "貌似没有", resaleLow: 230, resaleHigh: 380 },
+  { id: "21185", name: "下界堡垒", nameEn: "The Nether Bastion", year: 2022, pieces: 290, priceCNY: 251, retired: true, owned: true, assembled: null, resaleLow: 330, resaleHigh: 520 },
+  { id: "21190", name: "废弃村落", nameEn: "The Abandoned Village", year: 2022, pieces: 412, priceCNY: 323, retired: true, owned: true, assembled: null, note: "绝版了", resaleLow: 420, resaleHigh: 600 },
+  // 2024
+  { id: "21259", name: "海盗船之旅", nameEn: "The Pirate Ship Voyage", year: 2024, pieces: 160, priceCNY: 107, retired: false, owned: true, assembled: false },
+  { id: "21260", name: "樱花园", nameEn: "The Cherry Blossom Garden", year: 2024, pieces: 298, priceCNY: 201, retired: false, owned: true, assembled: true },
+  { id: "21261", name: "恶狼要塞", nameEn: "The Wolf Stronghold", year: 2024, pieces: 296, priceCNY: 251, retired: false, owned: true, assembled: true },
+  { id: "21262", name: "风车农场", nameEn: "The Windmill Farm", year: 2024, pieces: 451, priceCNY: 395, retired: false, owned: true, assembled: true },
+  { id: "21263", name: "荒地矿井", nameEn: "The Badlands Mineshaft", year: 2024, pieces: 528, priceCNY: 431, retired: false, owned: true, assembled: false },
+  { id: "21264", name: "末影龙与末地船", nameEn: "The Ender Dragon and End Ship", year: 2024, pieces: 633, priceCNY: 575, retired: false, owned: true, assembled: false },
+  // 2024 - not owned
+  { id: "21265", name: "创意工作台", nameEn: "The Crafting Table", year: 2024, pieces: 1179, priceCNY: 647, retired: false, owned: false, assembled: null, note: "没有正版，只有盗版" },
+  // 2025
+  { id: "21266", name: "下界熔岩湖之战", nameEn: "The Nether Lava Battle", year: 2025, pieces: 74, priceCNY: 71, retired: false, owned: true, assembled: false },
+  { id: "21267", name: "灾厄村民沙漠巡逻队", nameEn: "The Illager Desert Patrol", year: 2025, pieces: 86, priceCNY: 71, retired: false, owned: true, assembled: true },
+  { id: "21268", name: "猪宝宝房屋", nameEn: "The Baby Pig House", year: 2025, pieces: 232, priceCNY: 143, retired: false, owned: true, assembled: true },
+  { id: "21269", name: "犰狳矿洞", nameEn: "The Armadillo Mine Expedition", year: 2025, pieces: 243, priceCNY: 143, retired: false, owned: true, assembled: null },
+  { id: "21270", name: "哞菇房屋", nameEn: "The Mooshroom House", year: 2025, pieces: 497, priceCNY: 287, retired: false, owned: true, assembled: true },
+  { id: "21271", name: "试炼密室", nameEn: "The Trial Chamber", year: 2025, pieces: 271, priceCNY: 215, retired: false, owned: true, assembled: true },
+  { id: "21272", name: "林地府邸擂台", nameEn: "Woodland Mansion Fighting Ring", year: 2025, pieces: 372, priceCNY: 251, retired: false, owned: false, assembled: null, note: "没有" },
+  { id: "21273", name: "恶魂气球袭击", nameEn: "The Ghast Balloon Village Attack", year: 2025, pieces: 491, priceCNY: 359, retired: false, owned: null, assembled: null, note: "未知" },
+  { id: "21274", name: "对战循声守卫", nameEn: "The Warden Encounter", year: 2025, pieces: 167, priceCNY: 143, retired: false, owned: true, assembled: null },
+  { id: "21275", name: "TNT丛林房屋", nameEn: "The TNT Jungle House", year: 2025, pieces: 277, priceCNY: 215, retired: false, owned: true, assembled: null },
+  { id: "21276", name: "苦力怕", nameEn: "The Creeper", year: 2025, pieces: 658, priceCNY: 431, retired: false, owned: true, assembled: null },
+  { id: "21277", name: "经典矿镐", nameEn: "The Pickaxe Mine", year: 2025, pieces: 517, priceCNY: 359, retired: false, owned: true, assembled: null },
+  { id: "21278", name: "前哨站与劫掠兽", nameEn: "The Pillager Outpost and Ravager", year: 2025, pieces: 651, priceCNY: 431, retired: false, owned: true, assembled: null },
+  { id: "21279", name: "末影人塔楼", nameEn: "The Enderman Tower", year: 2025, pieces: 832, priceCNY: 575, retired: false, owned: true, assembled: null },
+  // 2025 - not owned
+  { id: "21280", name: "圣诞倒数日历", nameEn: "Advent Calendar", year: 2025, pieces: 0, priceCNY: 250, retired: false, owned: false, assembled: null, note: "没有" },
+  { id: "21281", name: "猪宝宝生日派对", nameEn: "Baby Pig Birthday Party", year: 2025, pieces: 351, priceCNY: 259, retired: false, owned: false, assembled: null, note: "没有" },
+  { id: "21282", name: "鹦鹉屋", nameEn: "The Parrot Houses", year: 2025, pieces: 523, priceCNY: 359, retired: false, owned: false, assembled: null, note: "没有" },
+  // 2026
+  { id: "21583", name: "史蒂夫冒险", nameEn: "Steve's Taiga Adventure", year: 2026, pieces: 79, priceCNY: 72, retired: false, owned: true, assembled: null },
+  { id: "21584", name: "下界与末地传送门", nameEn: "Nether & End Portal Journey", year: 2026, pieces: 192, priceCNY: 108, retired: false, owned: true, assembled: false },
+  { id: "21585", name: "小鸡农场", nameEn: "Chicken Farm", year: 2026, pieces: 233, priceCNY: 144, retired: false, owned: true, assembled: false },
+  { id: "21586", name: "苍白之园", nameEn: "The Pale Garden", year: 2026, pieces: 243, priceCNY: 144, retired: false, owned: true, assembled: false },
+  { id: "21587", name: "僵尸地牢", nameEn: "Zombie Dungeon", year: 2026, pieces: 284, priceCNY: 216, retired: false, owned: true, assembled: false },
+  { id: "21588", name: "狐狸", nameEn: "The Fox", year: 2026, pieces: 497, priceCNY: 288, retired: false, owned: true, assembled: null },
+  { id: "21589", name: "迷你生物群系", nameEn: "Mini Biomes", year: 2026, pieces: 797, priceCNY: 432, retired: false, owned: true, assembled: false },
+  { id: "21590", name: "凋灵之战", nameEn: "Wither Battle", year: 2026, pieces: 494, priceCNY: 468, retired: false, owned: true, assembled: false },
+];
+
+function renderCards() {
+  const grid = document.getElementById("cardGrid");
+  grid.innerHTML = "";
+  sets.forEach(s => {
+    const cardClass = s.owned === false ? "not-owned" : (s.retired ? "retired" : "owned");
+    const assemblyStatus = getAssemblyStatus(s);
+
+    let ribbonHTML = "";
+    if (s.retired && s.owned !== false) ribbonHTML = '<div class="ribbon">绝版</div>';
+
+    let badgesHTML = `<span class="badge badge-year">${s.year}年</span>`;
+    if (s.pieces > 0) badgesHTML += `<span class="badge badge-pieces">${s.pieces}颗粒</span>`;
+    if (s.retired) badgesHTML += `<span class="badge badge-retired">绝版</span>`;
+    else badgesHTML += `<span class="badge badge-available">在售</span>`;
+
+    if (s.owned === true) {
+      if (s.assembled === true) badgesHTML += `<span class="badge badge-assembled">已拼好</span>`;
+      else if (s.assembled === false) badgesHTML += `<span class="badge badge-not-assembled">可能未拼</span>`;
+      else badgesHTML += `<span class="badge badge-unknown">拼装状态未知</span>`;
+    } else if (s.owned === false) {
+      if (s.note) badgesHTML += `<span class="badge badge-not-owned">${s.note}</span>`;
+      else badgesHTML += `<span class="badge badge-not-owned">未购入</span>`;
+    } else {
+      if (s.note) badgesHTML += `<span class="badge badge-unknown">${s.note}</span>`;
+    }
+
+    let priceHTML = `<div class="price-row"><span class="price-original">¥${s.priceCNY}</span></div>`;
+    if (s.retired && s.resaleLow) {
+      const avgResale = Math.round((s.resaleLow + s.resaleHigh) / 2);
+      const multiplier = (avgResale / s.priceCNY).toFixed(1);
+      priceHTML += `<div class="price-resale">二手估价: <span class="premium">¥${s.resaleLow}~${s.resaleHigh}</span> (约${multiplier}倍)</div>`;
+    }
+
+    const card = document.createElement("div");
+    card.className = `card ${cardClass}`;
+    card.dataset.owned = s.owned === true ? "yes" : (s.owned === false ? "no" : "unknown");
+    card.dataset.retired = s.retired ? "yes" : "no";
+    card.dataset.assembled = s.assembled === true ? "yes" : (s.assembled === false ? "no" : "unknown");
+    card.innerHTML = `
+      ${ribbonHTML}
+      <img class="card-img" src="images/${s.id}.jpg" alt="${s.id} ${s.name}" loading="lazy" onerror="this.style.background='#333';this.alt='图片未找到';">
+      <div class="card-body">
+        <div class="card-set-id">#${s.id}</div>
+        <div class="card-title">${s.name} <span style="color:#888;font-weight:normal;font-size:0.85em">${s.nameEn}</span></div>
+        <div class="card-meta">${badgesHTML}</div>
+        ${priceHTML}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function getAssemblyStatus(s) {
+  if (s.assembled === true) return "assembled";
+  if (s.assembled === false) return "not-built";
+  return "unknown";
+}
+
+function filterCards(type) {
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  event.target.classList.add("active");
+
+  document.querySelectorAll(".card").forEach(card => {
+    let show = false;
+    switch(type) {
+      case "all": show = true; break;
+      case "owned": show = card.dataset.owned === "yes"; break;
+      case "retired": show = card.dataset.retired === "yes"; break;
+      case "not-built":
+        show = card.dataset.owned === "yes" && card.dataset.assembled !== "yes"; break;
+      case "not-owned": show = card.dataset.owned === "no"; break;
+    }
+    card.style.display = show ? "" : "none";
+  });
+}
+
+function renderResaleTable() {
+  const tbody = document.querySelector("#resaleTable tbody");
+  const retiredSets = sets.filter(s => s.retired && s.resaleLow);
+  retiredSets.forEach(s => {
+    const avgResale = Math.round((s.resaleLow + s.resaleHigh) / 2);
+    const multiplier = (avgResale / s.priceCNY).toFixed(1);
+    const ownedText = s.owned === true ? "有" : (s.owned === false ? "无" : "未知");
+    const ownedColor = s.owned === true ? "#7ec850" : (s.owned === false ? "#ff6b6b" : "#888");
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${s.id}</td>
+      <td>${s.name}</td>
+      <td>${s.year}</td>
+      <td class="price-cell">¥${s.priceCNY}</td>
+      <td class="resale-cell">¥${s.resaleLow}~${s.resaleHigh}</td>
+      <td><span class="premium">${multiplier}x</span></td>
+      <td style="color:${ownedColor};font-weight:bold">${ownedText}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function updateStats() {
+  const owned = sets.filter(s => s.owned === true);
+  const retired = sets.filter(s => s.retired && s.owned === true);
+  const notBuilt = sets.filter(s => s.owned === true && s.assembled !== true);
+  const notOwned = sets.filter(s => s.owned === false);
+  const totalOriginal = owned.reduce((sum, s) => sum + s.priceCNY, 0);
+
+  document.getElementById("totalOwned").textContent = owned.length;
+  document.getElementById("totalRetired").textContent = retired.length;
+  document.getElementById("totalNotBuilt").textContent = notBuilt.length;
+  document.getElementById("totalNotOwned").textContent = notOwned.length;
+  document.getElementById("totalValue").textContent = "¥" + totalOriginal.toLocaleString();
+
+  const retiredOwned = sets.filter(s => s.retired && s.owned === true && s.resaleLow);
+  const totalResaleLow = retiredOwned.reduce((sum, s) => sum + s.resaleLow, 0);
+  const totalResaleHigh = retiredOwned.reduce((sum, s) => sum + s.resaleHigh, 0);
+  const totalRetiredOriginal = retiredOwned.reduce((sum, s) => sum + s.priceCNY, 0);
+
+  document.getElementById("totalValueSection").innerHTML = `
+    <div>已拥有套装原价总值: <span class="amount">¥${totalOriginal.toLocaleString()}</span></div>
+    <div style="margin-top:10px;">其中绝版套装 (${retiredOwned.length}套) 原价: <span style="color:#ff4757;font-weight:bold;">¥${totalRetiredOriginal.toLocaleString()}</span></div>
+    <div style="margin-top:5px;">绝版套装估计二手总值: <span style="color:#ffa502;font-weight:bold;font-size:1.3em;">¥${totalResaleLow.toLocaleString()} ~ ¥${totalResaleHigh.toLocaleString()}</span></div>
+    <div style="margin-top:5px;color:#888;font-size:0.85em;">平均增值约 ${(((totalResaleLow+totalResaleHigh)/2) / totalRetiredOriginal).toFixed(1)} 倍</div>
+  `;
+}
+
+renderCards();
+renderResaleTable();
+updateStats();
+</script>
+
+</body>
+</html>
