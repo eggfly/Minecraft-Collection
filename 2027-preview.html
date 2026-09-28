@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2027 我的世界乐高猜想</title>
+<style>
+:root{
+  --bg:#f5f2e9; --card:#fffdf8; --ink:#1f2328; --muted:#5d646d; --line:#e3ddcf;
+  --accent:#3a8a36; --warn-bg:#fff3d1; --warn-ink:#6f4b00; --warn-line:#f0d68a;
+  --chip:#eef2e8; --hi:#2e7d32; --mid:#a86400; --lo:#a23c3c; --heart:#e0455a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#141619; --card:#1d2024; --ink:#e9e7e2; --muted:#a2a8b0; --line:#2e3238;
+    --accent:#72c86a; --warn-bg:#2d2615; --warn-ink:#f1c76c; --warn-line:#5a4a22;
+    --chip:#252a22; --hi:#83d27d; --mid:#f0b052; --lo:#f08c8c; --heart:#ff6b7f;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141619; --card:#1d2024; --ink:#e9e7e2; --muted:#a2a8b0; --line:#2e3238;
+  --accent:#72c86a; --warn-bg:#2d2615; --warn-ink:#f1c76c; --warn-line:#5a4a22;
+  --chip:#252a22; --hi:#83d27d; --mid:#f0b052; --lo:#f08c8c; --heart:#ff6b7f;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding:28px 16px 120px}
+header h1{font-size:clamp(26px,5vw,38px);line-height:1.2;margin:0 0 6px;letter-spacing:.5px}
+header p{margin:0;color:var(--muted)}
+header a{color:var(--accent)}
+.notice{margin:20px 0 18px;padding:14px 16px;border-radius:12px;background:var(--warn-bg);
+  color:var(--warn-ink);border:1px solid var(--warn-line);font-size:15px}
+.notice b{font-weight:700}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 26px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;min-width:120px}
+.stat .n{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+.stat .l{font-size:13px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr;gap:20px}
+@media (min-width:780px){.grid{grid-template-columns:1fr 1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.card canvas{display:block;width:100%;aspect-ratio:4/3;background:#ddd}
+.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.num{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.5px}
+.card h2{font-size:21px;margin:0;line-height:1.3}
+.en{font-size:14px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:13px;background:var(--chip);border-radius:999px;padding:2px 10px;font-variant-numeric:tabular-nums}
+.conf-hi{color:var(--hi)} .conf-mid{color:var(--mid)} .conf-lo{color:var(--lo)}
+.card h3{font-size:13px;margin:4px 0 0;color:var(--muted);font-weight:600}
+.card p{margin:0;font-size:15px}
+.heart{flex:none;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;
+  padding:4px 12px;font-size:14px;cursor:pointer;font-family:inherit}
+.heart[aria-pressed="true"]{color:#fff;background:var(--heart);border-color:var(--heart)}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);
+  padding:10px 16px;display:flex;justify-content:center}
+.bar div{max-width:1120px;width:100%;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:15px}
+.bar b{font-variant-numeric:tabular-nums}
+.src{margin-top:34px;font-size:14px;color:var(--muted)}
+.src a{color:var(--accent)}
+.src ul{padding-left:20px;margin:6px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>2027 年《我的世界》乐高新品猜想图</h1>
+  <p>给晨晨的提前看 · 整理于 2026 年 9 月 28 日 · <a href="collection.html">← 返回收藏总览</a></p>
+</header>
+
+<div class="notice">
+  <b>⚠️ 这些不是真的产品图。</b>乐高官方还没有公布任何图片。下面 8 张是根据网上流出的<b>名字、颗粒数和价格</b>，照着《我的世界》游戏里的样子画的<b>想象示意图</b>，真正的套装一定会长得不一样。编号、颗粒数、价格也还是传闻，中文名是暂译。
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="n">8</div><div class="l">款新品（传闻）</div></div>
+  <div class="stat"><div class="n">2027.1</div><div class="l">预计上市月份</div></div>
+  <div class="stat"><div class="n">$9.99–69.99</div><div class="l">美国售价区间</div></div>
+  <div class="stat"><div class="n">1,814</div><div class="l">7 款正式套装总颗粒</div></div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="src">
+  <b>信息来源（均为爆料/传闻，官方未确认）</b>
+  <ul>
+    <li><a href="https://stonewars.com/lego-2027/" target="_blank" rel="noopener">StoneWars – LEGO 2027 Sets: Confirmed and Rumored</a></li>
+    <li><a href="https://www.brickfanatics.com/lego-minecraft-january-2027-sets-including-castle" target="_blank" rel="noopener">Brick Fanatics – Rumoured LEGO Minecraft January 2027 sets</a></li>
+    <li><a href="https://brickset.com/sets/theme-Minecraft/year-2027" target="_blank" rel="noopener">Brickset – Minecraft 2027（官方图公布后这里会最先更新）</a></li>
+    <li><a href="https://brickset.com/sets/21268-1/The-Baby-Pig-House" target="_blank" rel="noopener">Brickset – 21268 猪宝宝房屋（狼头房子猜想的参考）</a></li>
+  </ul>
+  图片为程序绘制的方块示意图，与乐高集团、Mojang 无关。
+</div>
+</div>
+
+<div class="bar"><div>
+  <span>❤️ 晨晨的心愿单：<b id="wn">0</b> 款</span>
+  <span>合计约 <b id="wp">$0.00</b>（美国价，不含小包）</span>
+</div></div>
+
+<script>
+/* ---------- 颜色工具 ---------- */
+function hx(h){h=h.replace('#','');return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)]}
+function sh(h,f,a){const c=hx(h).map(v=>Math.max(0,Math.min(255,Math.round(v*f))));return a==null?`rgb(${c})`:`rgba(${c},${a})`}
+function toHex(c){return'#'+c.map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join('')}
+function mul(h,f){return toHex(hx(h).map(v=>v*f))}
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+
+/* ---------- 体素场景 ---------- */
+function Scene(seed){this.m=new Map();this.r=rng(seed)}
+Scene.prototype.k=(x,y,z)=>x+','+y+','+z;
+Scene.prototype.set=function(x,y,z,c,o){o=o||{};this.m.set(this.k(x,y,z),{x,y,z,c,a:o.a==null?1:o.a,stud:o.stud!==false,b:o.b||null,dec:o.dec||null,glow:!!o.glow});return this};
+Scene.prototype.get=function(x,y,z){return this.m.get(this.k(x,y,z))};
+Scene.prototype.del=function(x,y,z){this.m.delete(this.k(x,y,z))};
+Scene.prototype.box=function(x0,y0,z0,x1,y1,z1,c,o){for(let x=x0;x<=x1;x++)for(let y=y0;y<=y1;y++)for(let z=z0;z<=z1;z++){const cc=typeof c==='function'?c(x,y,z):c;if(cc)this.set(x,y,z,cc,o)}return this};
+Scene.prototype.j=function(c,a){return mul(c,1+(this.r()-.5)*(a==null?.12:a))};
+
+const POST=[.36,.36,0,.64,.64,1], BEAM_X=[0,.38,.36,1,.62,.64];
+const NS={stud:false};
+
+/* ---------- 渲染 ---------- */
+function render(cv,S,bg,wm){
+  const w=cv.clientWidth,h=cv.clientHeight;if(!w||!h)return;
+  const d=Math.min(window.devicePixelRatio||1,2);
+  cv.width=Math.round(w*d);cv.height=Math.round(h*d);
+  const g=cv.getContext('2d');g.setTransform(d,0,0,d,0,0);
+  const gr=g.createLinearGradient(0,0,0,h);gr.addColorStop(0,bg[0]);gr.addColorStop(1,bg[1]);
+  g.fillStyle=gr;g.fillRect(0,0,w,h);
+  const V=[...S.m.values()];
+  let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;
+  for(const v of V)for(let i=0;i<8;i++){const X=v.x+(i&1),Y=v.y+(i>>1&1),Z=v.z+(i>>2&1);
+    const px=(X-Y)*.866,py=(X+Y)*.5-Z;if(px<x0)x0=px;if(px>x1)x1=px;if(py<y0)y0=py;if(py>y1)y1=py}
+  const pad=Math.max(16,w*.06);
+  const s=Math.min((w-2*pad)/(x1-x0),(h-2*pad-8)/(y1-y0));
+  const ox=(w-(x1-x0)*s)/2-x0*s,oy=(h-(y1-y0)*s)/2-y0*s-4;
+  const P=(x,y,z)=>[ox+(x-y)*.866*s,oy+((x+y)*.5-z)*s];
+  // 地面阴影
+  g.fillStyle='rgba(0,0,0,.10)';g.beginPath();
+  g.ellipse(w/2,oy+y1*s-2,(x1-x0)*s*.46,Math.max(6,s*.9),0,0,Math.PI*2);g.fill();
+  V.sort((a,b)=>(a.x+a.y+a.z)-(b.x+b.y+b.z)||a.z-b.z);
+  const solid=(x,y,z)=>{const n=S.get(x,y,z);return n&&!n.b&&n.a>=1};
+  const lw=Math.max(.5,s*.04);
+  const poly=(pts,fill,stroke)=>{g.beginPath();pts.forEach((p,i)=>{const q=P(p[0],p[1],p[2]);i?g.lineTo(q[0],q[1]):g.moveTo(q[0],q[1])});g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=lw;g.stroke()}};
+  for(const v of V){
+    const b=v.b||[0,0,0,1,1,1],full=!v.b;
+    const X0=v.x+b[0],Y0=v.y+b[1],Z0=v.z+b[2],X1=v.x+b[3],Y1=v.y+b[4],Z1=v.z+b[5];
+    g.globalAlpha=v.a;
+    if(v.glow){g.shadowColor=v.c;g.shadowBlur=s*.9}
+    const st=sh(v.c,.42,.45),vis={};
+    if(!(full&&solid(v.x,v.y+1,v.z))){vis.y=1;poly([[X0,Y1,Z0],[X1,Y1,Z0],[X1,Y1,Z1],[X0,Y1,Z1]],sh(v.c,.8),st)}
+    if(!(full&&solid(v.x+1,v.y,v.z))){vis.x=1;poly([[X1,Y0,Z0],[X1,Y1,Z0],[X1,Y1,Z1],[X1,Y0,Z1]],sh(v.c,.64),st)}
+    if(!(full&&solid(v.x,v.y,v.z+1))){vis.z=1;poly([[X0,Y0,Z1],[X1,Y0,Z1],[X1,Y1,Z1],[X0,Y1,Z1]],sh(v.c,1.02),st)}
+    g.shadowBlur=0;
+    if(full&&v.dec)for(const e of v.dec){
+      const f=e[0];if(!vis[f])continue;let pts,k;
+      if(f==='y'){const Y=v.y+1;k=.8;pts=[[v.x+e[1],Y,v.z+e[2]],[v.x+e[3],Y,v.z+e[2]],[v.x+e[3],Y,v.z+e[4]],[v.x+e[1],Y,v.z+e[4]]]}
+      else if(f==='x'){const X=v.x+1;k=.64;pts=[[X,v.y+1-e[1],v.z+e[2]],[X,v.y+1-e[3],v.z+e[2]],[X,v.y+1-e[3],v.z+e[4]],[X,v.y+1-e[1],v.z+e[4]]]}
+      else{const Z=v.z+1;k=1;pts=[[v.x+e[1],v.y+e[2],Z],[v.x+e[3],v.y+e[2],Z],[v.x+e[3],v.y+e[4],Z],[v.x+e[1],v.y+e[4],Z]]}
+      poly(pts,sh(e[5],k))
+    }
+    if(full&&v.stud&&vis.z&&v.a>=1&&!(v.dec&&v.dec.some(e=>e[0]==='z'))){
+      const q=P(v.x+.5,v.y+.5,v.z+1),rx=.3*1.2247*s,ry=.3*.7071*s,hh=.16*s;
+      g.fillStyle=sh(v.c,.74);g.beginPath();g.ellipse(q[0],q[1],rx,ry,0,0,Math.PI*2);g.fill();
+      g.fillRect(q[0]-rx,q[1]-hh,2*rx,hh);
+      g.fillStyle=sh(v.c,1.12);g.beginPath();g.ellipse(q[0],q[1]-hh,rx,ry,0,0,Math.PI*2);g.fill();
+    }
+    g.globalAlpha=1;
+  }
+  g.font='600 12px -apple-system,"PingFang SC",sans-serif';g.textAlign='right';
+  g.fillStyle=wm;g.fillText('想象示意图 · 非官方',w-12,h-10);
+}
+
+/* ---------- 人物和生物 ---------- */
+const SKIN='#c8966c';
+function eyes(f,white,pupil){return white?[[f,.12,.42,.4,.58,white],[f,.26,.42,.4,.58,pupil],[f,.6,.42,.88,.58,white],[f,.6,.42,.74,.58,pupil]]
+  :[[f,.14,.42,.38,.6,pupil],[f,.62,.42,.86,.6,pupil]]}
+function person(S,x,y,z,o){
+  const f=o.face||'y',side=f==='y'?'x':'y';
+  S.set(x,y,z,o.legs,NS);
+  S.set(x,y,z+1,o.body,{stud:false,dec:o.bodyDec});
+  let dec=[];
+  if(o.helmet){dec.push([f,.1,.1,.9,.72,o.skin||SKIN])}
+  if(o.hair){dec.push([f,0,.76,1,1,o.hair],[side,0,.45,1,1,o.hair],['z',0,0,1,1,o.hair])}
+  if(o.helmet)dec.push(['z',0,0,1,1,o.head]);
+  dec=dec.concat(eyes(f,o.white===false?null:'#ffffff',o.eye||'#4b3bb0'));
+  if(o.mouth)dec.push([f,.34,.16,.66,.26,o.mouth]);
+  if(o.nose)dec.push([f,.4,.2,.6,.46,mul(o.head,.8)]);
+  S.set(x,y,z+2,o.head,{stud:false,dec});
+}
+const steve=(S,x,y,z,f)=>person(S,x,y,z,{legs:'#3a3b98',body:'#2aa2a6',head:SKIN,hair:'#3b2616',mouth:'#8a563a',face:f});
+const alex=(S,x,y,z,f)=>person(S,x,y,z,{legs:'#5b3a22',body:'#6ea64f',head:'#e9bb90',hair:'#d9782c',eye:'#2e7d32',mouth:'#b4755a',face:f});
+const zombie=(S,x,y,z)=>{person(S,x,y,z,{legs:'#3a3b98',body:'#2aa2a6',head:'#5e9d48',white:false,eye:'#1a2a16'});
+  S.set(x,y+1,z+1,'#5e9d48',{stud:false,b:[.2,0,.3,.8,1,.7]})};
+const skeleton=(S,x,y,z)=>person(S,x,y,z,{legs:'#bfbfbf',body:'#d0d0d0',head:'#dadada',white:false,eye:'#2b2b2b',mouth:'#555555'});
+const husk=(S,x,y,z)=>{person(S,x,y,z,{legs:'#5b4a33',body:'#6d5b3e',head:'#a88f63',white:false,eye:'#2d2416'});
+  S.set(x,y+1,z+1,'#a88f63',{stud:false,b:[.2,0,.3,.8,1,.7]})};
+const villager=(S,x,y,z,robe)=>person(S,x,y,z,{legs:robe,body:robe,head:'#b98a67',white:false,eye:'#2f6b2f',nose:true});
+function knight(S,x,y,z,team,f){person(S,x,y,z,{legs:'#9a9a9a',body:team,head:'#cfd3d6',helmet:true,eye:'#3a3a3a',white:false,face:f||'y'})}
+function sword(S,x,y,z,c){S.set(x,y,z,c||'#dfe6ea',{stud:false,b:[.4,.4,0,.6,.6,1.1]})}
+function blaze(S,x,y,z){
+  S.set(x,y,z+2,'#f3c22b',{stud:false,glow:true,dec:eyes('y',null,'#3a2000').concat(eyes('x',null,'#3a2000'))});
+  const o={stud:false,glow:true,b:POST};
+  [[x-1,y,z+1],[x+1,y,z+1],[x,y-1,z+1],[x,y+1,z+1],[x-1,y-1,z],[x+1,y+1,z],[x+1,y-1,z],[x-1,y+1,z]].forEach(p=>S.set(p[0],p[1],p[2],'#ea8a1c',o));
+}
+function wolf(S,x,y,z){
+  const W='#ebebe7';
+  S.set(x,y,z,'#d4d4cf',{stud:false,b:[.12,.18,0,.88,.82,1]});
+  S.set(x+1,y,z,'#d4d4cf',{stud:false,b:[.12,.18,0,.88,.82,1]});
+  S.set(x,y,z+1,W,NS);S.set(x+1,y,z+1,W,NS);
+  S.set(x-1,y,z+1,W,{stud:false,b:[.3,.35,.1,1,.65,.5]});
+  S.set(x+2,y,z+1,W,{stud:false,dec:[['x',.1,.52,.34,.72,'#262626'],['x',.66,.52,.9,.72,'#262626'],['x',.28,0,.72,.42,'#c9c9c3'],['x',.4,.26,.6,.42,'#1e1e1e'],['y',0,0,.22,1,'#c8382c'],['z',.25,.1,.45,.45,'#cfcfca'],['z',.25,.55,.45,.9,'#cfcfca']]});
+}
+function babyWolf(S,x,y,z){
+  S.set(x,y,z,'#ebebe7',{stud:false,b:[.1,.2,0,1,.8,.6]});
+  S.set(x+1,y,z,'#ebebe7',{stud:false,dec:[['x',.12,.5,.36,.7,'#262626'],['x',.64,.5,.88,.7,'#262626'],['x',.4,.22,.6,.38,'#1e1e1e'],['y',0,0,.2,1,'#3d7fd6']]});
+}
+function horse(S,x,y,z,dir,coat,cloth){
+  const hx=dir>0?x+3:x-1, mx=dir>0?x+4:x-2;
+  S.set(x,y,z,coat,{stud:false,b:POST});S.set(x,y,z+1,coat,{stud:false,b:POST});
+  S.set(x+2,y,z,coat,{stud:false,b:POST});S.set(x+2,y,z+1,coat,{stud:false,b:POST});
+  for(let i=0;i<3;i++)S.set(x+i,y,z+2,cloth,{stud:false,dec:[['y',0,0,1,.25,mul(cloth,.75)],['y',0,.25,1,.35,'#f4d35e']]});
+  S.set(dir>0?x-1:x+3,y,z+2,mul(coat,.6),{stud:false,b:[.2,.4,.1,.8,.6,.9]});
+  S.set(hx,y,z+3,coat,NS);
+  S.set(hx,y,z+4,coat,{stud:false,dec:[['y',.55,.45,.8,.7,'#1c1c1c'],['z',.1,0,.35,1,mul(coat,.6)]]});
+  S.set(mx,y,z+4,mul(coat,.85),{stud:false,b:[0,.15,.05,1,.85,.75]});
+}
+
+/* ---------- 场景工具 ---------- */
+function ground(S,x0,y0,x1,y1,top,under,z){z=z||0;for(let x=x0;x<=x1;x++)for(let y=y0;y<=y1;y++){S.set(x,y,z,S.j(under,.1));S.set(x,y,z+1,typeof top==='function'?top(x,y):S.j(top,.14))}}
+function oak(S,x,y,z,h,log,leaf){log=log||'#6b4f2a';leaf=leaf||'#3f8a2e';
+  for(let i=0;i<h;i++)S.set(x,y,z+i,log,NS);
+  for(let dz=h-2;dz<=h+1;dz++){const r=dz<h?2:1;for(let dx=-r;dx<=r;dx++)for(let dy=-r;dy<=r;dy++){
+    if(Math.abs(dx)==r&&Math.abs(dy)==r&&(dz>=h||S.r()<.6))continue;if(dz==h+1&&Math.abs(dx)+Math.abs(dy)>1)continue;
+    if(!S.get(x+dx,y+dy,z+dz))S.set(x+dx,y+dy,z+dz,S.j(leaf,.2))}}}
+function spruce(S,x,y,z,h){for(let i=0;i<h;i++)S.set(x,y,z+i,'#4a3420',NS);
+  const L='#2f5c3c';const lay=[[2,2],[3,1],[4,2],[5,1],[6,1]];
+  lay.forEach(([dz,r])=>{if(dz>=h)return;for(let dx=-r;dx<=r;dx++)for(let dy=-r;dy<=r;dy++){if(r>1&&Math.abs(dx)==r&&Math.abs(dy)==r)continue;if(!S.get(x+dx,y+dy,z+dz))S.set(x+dx,y+dy,z+dz,S.j(L,.18))}});
+  S.set(x,y,z+h,S.j(L,.1));}
+function ore(c){return[['x',.14,.55,.42,.82,c],['x',.56,.18,.84,.45,c],['y',.14,.55,.42,.82,c],['y',.56,.18,.84,.45,c],['z',.2,.2,.45,.45,c],['z',.55,.55,.8,.8,c]]}
+
+/* ---------- 8 个场景 ---------- */
+const SCENES={
+21599(){const S=new Scene(11);
+  ground(S,0,0,6,5,'#6cab4c','#8a5a2f');
+  oak(S,1,1,2,4);
+  steve(S,4,4,2);sword(S,5,4,3);
+  zombie(S,5,1,2);
+  S.set(2,4,2,'#9a6a39',{stud:false,dec:[['z',.08,.08,.92,.92,'#b7874f'],['z',.48,.08,.52,.92,'#6d4a26'],['z',.08,.48,.92,.52,'#6d4a26'],['y',.15,.2,.4,.8,'#5a3a1c'],['y',.6,.2,.85,.8,'#5a3a1c'],['x',.2,.3,.8,.7,'#7a5530']]});
+  S.set(0,4,2,'#f0ebe0',{stud:false,b:POST});
+  S.set(0,4,3,'#d23b2f',{stud:false,dec:[['z',.2,.2,.38,.38,'#fff'],['z',.6,.55,.78,.73,'#fff'],['y',.55,.4,.75,.62,'#fff'],['x',.2,.4,.4,.62,'#fff']]});
+  S.set(3,0,2,'#f4d23a',{stud:false,b:[.3,.3,0,.7,.7,.45]});
+  S.set(6,5,2,'#e0453a',{stud:false,b:[.3,.3,0,.7,.7,.45]});
+  return S},
+
+21600(){const S=new Scene(22);
+  ground(S,0,0,10,8,'#57a043','#7a5230');
+  S.box(1,1,2,3,3,6,()=>S.r()<.4?S.j('#6c8a55',.12):S.j('#7f7f7c',.14));
+  S.set(2,3,2,'#2a2218',NS);S.set(2,3,3,'#2a2218',NS);
+  S.box(0,0,7,4,4,7,()=>S.j('#a8784a',.1));
+  for(let x=0;x<=4;x++)for(let y=0;y<=4;y++)if((x==0||y==0||x==4||y==4)&&(x+y)%2==0)S.set(x,y,8,'#7a5230',{stud:false,b:POST});
+  for(let x=1;x<=3;x++)for(let z=3;z<=6;z++)if(S.r()<.6)S.set(x,4,z,S.j('#3d8a2a',.2),{stud:false,b:[0,0,0,1,.14,1]});
+  for(let y=1;y<=3;y++)for(let z=3;z<=6;z++)if(S.r()<.45)S.set(4,y,z,S.j('#3d8a2a',.2),{stud:false,b:[0,0,0,.14,1,1]});
+  skeleton(S,2,2,8);S.set(2,3,9,'#6b4a2b',{stud:false,b:[.1,0,.1,.9,.14,.9]});
+  for(let x=5;x<=7;x++)S.set(x,2,7,S.j('#a8784a',.1),{stud:false,b:[0,0,.55,1,1,1]});
+  for(let i=0;i<9;i++)S.set(8,2,2+i,'#6a5530',NS);
+  for(let z=8;z<=11;z++){const r=z<10?2:1;for(let dx=-r;dx<=r;dx++)for(let dy=-r;dy<=r;dy++){if(Math.abs(dx)==r&&Math.abs(dy)==r&&S.r()<.7)continue;if(!S.get(8+dx,2+dy,z))S.set(8+dx,2+dy,z,S.j('#2c8a2c',.22))}}
+  S.set(9,2,5,'#b0602a',{stud:false,b:[0,.3,.2,.3,.7,.7]});S.set(8,3,4,'#8a4a22',{stud:false,b:[.3,0,.2,.7,.3,.7]});
+  S.set(8,3,7,'#e2302b',{stud:false,b:[.25,.2,0,.75,.8,.85]});
+  alex(S,6,6,2);sword(S,7,6,3,'#6fe0e0');
+  S.set(9,6,2,'#6aa33a',{dec:[['z',0,.15,1,.28,'#3e7a22'],['z',0,.6,1,.73,'#3e7a22'],['y',.15,0,.28,1,'#3e7a22'],['y',.6,0,.73,1,'#3e7a22']]});
+  S.set(10,5,2,'#6aa33a',{stud:false,b:POST});
+  return S},
+
+21601(){const S=new Scene(33);
+  ground(S,0,0,12,9,()=>S.r()<.2?S.j('#7b5a34',.1):S.j('#78a852',.14),'#7a5230');
+  S.box(1,1,2,6,5,6,()=>S.r()<.3?S.j('#d6d6d2',.05):S.j('#ededea',.04));
+  [[2,5,5],[5,5,5]].forEach(p=>S.set(p[0],p[1],p[2],'#262626',{dec:[['y',.55,.55,.85,.85,'#ffffff']]}));
+  S.box(1,5,2,6,5,2,'#c8382c');S.box(6,1,2,6,5,2,'#c8382c');
+  S.box(2,6,2,5,6,3,'#f5f5f2');S.set(3,6,3,'#1f1f1f');S.set(4,6,3,'#1f1f1f');
+  S.set(6,2,3,'#8a5a2b',{dec:[['x',.1,.1,.9,.9,'#9c6a36'],['x',.15,.4,.3,.55,'#e2c56a']]});S.set(6,2,4,'#8a5a2b',{dec:[['x',.1,.1,.9,.9,'#9c6a36']]});
+  S.set(6,3,3,'#8a5a2b',{dec:[['x',.1,.1,.9,.9,'#9c6a36']]});S.set(6,3,4,'#8a5a2b',{dec:[['x',.1,.1,.9,.9,'#9c6a36']]});
+  S.set(6,4,5,'#a9d8f0',{dec:[['x',.1,.1,.9,.9,'#cfeaf7'],['x',.47,0,.53,1,'#7a5230']]});
+  S.set(1,4,7,'#dcdcd8');S.set(2,4,7,'#dcdcd8',{dec:[['y',.2,0,.85,.8,'#eaa4a4']]});S.set(1,4,8,'#dcdcd8');
+  S.set(5,4,7,'#dcdcd8',{dec:[['y',.15,0,.8,.8,'#eaa4a4']]});S.set(6,4,7,'#dcdcd8');S.set(6,4,8,'#dcdcd8');
+  spruce(S,10,2,2,7);
+  wolf(S,8,6,2);babyWolf(S,8,8,2);
+  alex(S,7,4,2);
+  S.set(11,7,2,'#f3f1ea',{stud:false,b:[.1,.35,0,.9,.65,.18]});
+  S.set(0,1,2,'#2f6b3a',{dec:[['z',.2,.2,.4,.4,'#d6333c'],['z',.6,.5,.8,.7,'#d6333c'],['y',.5,.5,.72,.72,'#d6333c'],['x',.3,.3,.52,.52,'#d6333c']]});
+  return S},
+
+21602(){const S=new Scene(44);
+  ground(S,0,0,10,10,(x,y)=>(x>=2&&x<=8&&y>=2&&y<=8)?S.j('#44212a',.1):S.j(S.r()<.5?'#7b2f2f':'#6a2626',.12),'#5a2020');
+  for(let y=0;y<=10;y++)for(let z=2;z<=3;z++)S.set(0,y,z,S.j('#3a1a20',.12));
+  for(let x=1;x<=10;x++)for(let z=2;z<=3;z++)S.set(x,0,z,S.j('#3a1a20',.12));
+  for(let i=1;i<=10;i+=2){S.set(0,i,4,'#2c1418',{stud:false,b:POST});S.set(i,0,4,'#2c1418',{stud:false,b:POST})}
+  [[0,0],[0,10],[10,0]].forEach(([x,y])=>{for(let z=2;z<=6;z++)S.set(x,y,z,S.j('#3a1a20',.1));S.set(x,y,7,'#4a2228')});
+  for(let x=1;x<=3;x++)for(let y=7;y<=9;y++)S.set(x,y,1,S.r()<.5?'#ff7a1a':'#ffae2e',{glow:true,stud:false});
+  S.set(2,2,2,'#262a35',{dec:[['y',.1,.1,.9,.9,'#3a3f4d'],['y',.3,.3,.7,.7,'#ff8a2a'],['x',.1,.1,.9,.9,'#3a3f4d'],['x',.3,.3,.7,.7,'#ff8a2a'],['z',.1,.1,.9,.9,'#3a3f4d']]});
+  blaze(S,5,4,3);
+  person(S,7,7,2,{legs:'#bdbdbd',body:'#dcdcdc',head:'#cfd3d6',helmet:true,eye:'#4b3bb0'});
+  S.set(8,7,3,'#8a6a3f',{stud:false,b:[0,.1,.05,.16,.9,.95]});sword(S,7,8,3,'#f5d442');
+  S.set(9,3,2,'#ff9a1f',{a:.9,glow:true,stud:false,b:[.15,.15,0,.85,.85,.85]});
+  S.set(9,4,2,'#ffc23a',{a:.9,glow:true,stud:false,b:[.25,.25,0,.75,.75,.6]});
+  S.set(8,2,2,'#a0692e',{stud:false,dec:[['y',0,.55,1,.62,'#6b4420'],['y',.42,.38,.58,.62,'#d8d8d8'],['x',0,.55,1,.62,'#6b4420']]});
+  S.set(1,1,2,'#9e1f2a',{stud:false,b:[.2,.2,0,.8,.8,.5]});
+  return S},
+
+21603(){const S=new Scene(55);
+  const ORES=['#5fd9d2','#f2cf3b','#d9b48f','#d23a2a','#2b2b2b','#9d6ad4'];
+  const stone=()=>S.j(S.r()<.25?'#6c6c70':'#838385',.1);
+  for(let x=0;x<=13;x++)for(let y=0;y<=9;y++)S.set(x,y,0,stone());
+  const wall=(x,y,hh)=>{for(let z=1;z<=hh;z++){const o=S.r()<.14?{dec:ore(ORES[Math.floor(S.r()*ORES.length)])}:{};S.set(x,y,z,stone(),o)}};
+  for(let y=0;y<=9;y++){wall(0,y,6+Math.floor(S.r()*3));wall(1,y,4+Math.floor(S.r()*4))}
+  for(let x=2;x<=13;x++){wall(x,0,6+Math.floor(S.r()*3));wall(x,1,4+Math.floor(S.r()*4))}
+  S.set(2,2,1,stone());S.set(3,2,1,stone());S.set(2,3,1,stone());
+  S.set(2,2,2,'#b58be8',{stud:false,glow:true,b:[.3,.3,0,.7,.7,.8]});
+  [5,10].forEach(x=>{for(let z=1;z<=3;z++){S.set(x,3,z,'#9c7a4a',{stud:false,b:POST});S.set(x,8,z,'#9c7a4a',{stud:false,b:POST})}
+    for(let y=3;y<=8;y++)S.set(x,y,4,S.j('#a47d4c',.08));
+    S.set(x,5,3,'#ffcf5a',{stud:false,glow:true,b:[.3,.3,.15,.7,.7,.75]})});
+  for(let x=2;x<=13;x++)if(!S.get(x,6,1))S.set(x,6,1,x%2?'#8a8074':'#6f5a45',{stud:false,b:[0,.1,0,1,.9,.14]});
+  S.set(8,6,1,'#6a6a6a',{stud:false,dec:[['z',.1,.1,.9,.9,'#3a3a3a'],['z',.2,.25,.55,.6,'#f2cf3b'],['z',.5,.45,.82,.8,'#5fd9d2'],['y',.08,0,.3,.22,'#1e1e1e'],['y',.7,0,.92,.22,'#1e1e1e'],['x',.08,0,.3,.22,'#1e1e1e'],['x',.7,0,.92,.22,'#1e1e1e']]});
+  steve(S,3,8,1);S.set(4,8,2,'#7a5230',{stud:false,b:POST});S.set(4,8,3,'#9aa0a6',{stud:false,b:[0,.4,0,1,.6,.25]});
+  alex(S,11,8,1);S.set(12,8,2,'#ffcf5a',{stud:false,glow:true,b:[.3,.3,0,.7,.7,.6]});
+  S.set(12,3,1,'#2d2d38',{stud:false,b:[0,.12,0,1,.88,.6]});
+  S.set(13,3,1,'#24323a',{stud:false,dec:[['x',.12,.5,.32,.68,'#e0302b'],['x',.68,.5,.88,.68,'#e0302b'],['x',.4,.62,.6,.78,'#e0302b']]});
+  S.set(12,2,1,'#1f1f26',{stud:false,b:[.1,.2,0,.9,1,.12]});S.set(12,4,1,'#1f1f26',{stud:false,b:[.1,0,0,.9,.8,.12]});
+  S.set(7,3,1,'#8a6b50',{stud:false,b:[.3,.3,0,.7,.7,1]});S.set(7,3,2,'#8a6b50',{stud:false,b:[.4,.4,0,.6,.6,.7]});
+  for(let x=12;x<=13;x++)for(let y=8;y<=9;y++){S.set(x,y,0,'#3d7be0',{a:.8,stud:false})}
+  S.set(11,8,0,stone());
+  S.set(2,5,3,'#ffcc44',{stud:false,glow:true,b:[.4,.4,0,.6,.6,.7]});
+  return S},
+
+21604(){const S=new Scene(66);
+  for(let x=-1;x<=21;x++)for(let y=-1;y<=8;y++){S.set(x,y,-2,S.j('#7a5230',.1));
+    if(x>=19)S.set(x,y,-1,S.j('#5e3b1d',.08),{stud:false,dec:[['z',.15,.3,.45,.7,'#f08a24'],['z',.2,.3,.4,.45,'#4f9a36'],['z',.55,.35,.85,.75,'#f08a24'],['z',.6,.35,.8,.5,'#4f9a36']]});
+    else S.set(x,y,-1,S.j('#6cab4c',.14))}
+  const P1='#f2a5ab',P2='#e58d95';
+  [[0,0],[0,5],[9,0],[9,5]].forEach(([lx,ly])=>S.box(lx,ly,0,lx+2,ly+2,3,()=>S.j(P2,.05),NS));
+  S.box(0,0,4,11,7,9,()=>S.j(P1,.05),NS);
+  S.box(12,1,5,17,6,10,()=>S.j(P1,.05),NS);
+  S.box(18,2,5,18,5,7,'#e8868c',NS);
+  S.set(18,3,6,'#e8868c',{stud:false,dec:[['x',.25,.25,.75,.75,'#a84d58']]});S.set(18,4,6,'#e8868c',{stud:false,dec:[['x',.25,.25,.75,.75,'#a84d58']]});
+  S.set(17,1,8,'#ffffff',NS);S.set(17,2,8,'#1c1c1c',NS);S.set(17,5,8,'#1c1c1c',NS);S.set(17,6,8,'#ffffff',NS);
+  S.set(13,6,8,'#ffffff',NS);S.set(14,6,8,'#1c1c1c',NS);
+  S.box(5,0,9,7,7,9,'#6b3f1f',NS);S.box(5,7,6,7,7,8,'#6b3f1f',NS);
+  S.set(6,8,5,'#9aa0a6',{stud:false,b:[.3,0,.3,.7,.3,.7]});
+  S.set(-1,3,7,P2,{stud:false,b:[.3,.3,.2,1,.7,.8]});
+  person(S,6,4,10,{legs:'#3a3b98',body:'#2aa2a6',head:SKIN,hair:'#3b2616',mouth:'#8a563a',face:'x'});
+  return S},
+
+21606(){const S=new Scene(77);
+  ground(S,0,0,15,11,(x,y)=>(y>=3&&y<=9&&x>=1&&x<=14)?S.j('#b89b68',.1):S.j('#6cab4c',.14),'#7a5230');
+  const st=()=>S.j(S.r()<.2?'#7f8a76':'#9a9a98',.1);
+  S.box(3,0,2,12,1,5,st);
+  [[0,2],[13,15]].forEach(([a,b])=>{S.box(a,0,2,b,2,7,st);for(let x=a;x<=b;x++)for(let y=0;y<=2;y++)if((x==a||x==b||y==0||y==2)&&(x+y)%2==0)S.set(x,y,8,st())});
+  for(let x=3;x<=12;x+=2)S.set(x,1,6,st());
+  for(let x=6;x<=9;x++)for(let z=2;z<=4;z++){if((x==6||x==9)&&z==4)continue;S.del(x,1,z);S.set(x,0,z,'#262626',NS)}
+  S.set(7,1,4,'#555a60',{stud:false,b:[0,.4,.4,1,.6,1]});S.set(8,1,4,'#555a60',{stud:false,b:[0,.4,.4,1,.6,1]});
+  for(let z=3;z<=5;z++){S.set(4,2,z,'#c0392b',{stud:false,b:[.1,0,0,.9,.14,1]});S.set(11,2,z,'#2e6fd1',{stud:false,b:[.1,0,0,.9,.14,1]})}
+  for(let z=8;z<=10;z++){S.set(1,1,z,'#6b4a2b',{stud:false,b:POST});S.set(14,1,z,'#6b4a2b',{stud:false,b:POST})}
+  S.set(2,1,10,'#c0392b',{stud:false,b:[0,.44,0,1,.56,1]});S.set(3,1,10,'#c0392b',{stud:false,b:[0,.44,.3,1,.56,1]});
+  S.set(15,1,10,'#2e6fd1',{stud:false,b:[0,.44,0,1,.56,1]});S.set(16,1,10,'#2e6fd1',{stud:false,b:[0,.44,.3,1,.56,1]});
+  S.set(5,2,4,'#ffcc44',{stud:false,glow:true,b:[.4,0,0,.6,.3,.7]});S.set(10,2,4,'#ffcc44',{stud:false,glow:true,b:[.4,0,0,.6,.3,.7]});
+  for(let x=2;x<=13;x++){if(x%2==0)S.set(x,6,2,'#8a6038',{stud:false,b:POST});S.set(x,6,3,x%2?'#f2f2f2':'#d64541',{stud:false,b:[0,.36,0,1,.64,.8]})}
+  horse(S,2,4,2,1,'#7a4a2a','#c0392b');knight(S,3,4,5,'#c0392b');
+  for(let x=3;x<=8;x++)S.set(x,5,6,'#d8c08a',{stud:false,b:BEAM_X});S.set(9,5,6,'#aeb6bd',{stud:false,b:[0,.4,.38,.7,.6,.62]});
+  S.set(3,5,6,'#e9e9e9',{stud:false,b:[.1,0,0,.9,.16,1]});
+  horse(S,10,8,2,-1,'#e8e2d6','#2e6fd1');knight(S,11,8,5,'#2e6fd1');
+  for(let x=5;x<=10;x++)S.set(x,7,6,'#d8c08a',{stud:false,b:BEAM_X});S.set(4,7,6,'#aeb6bd',{stud:false,b:[.3,.4,.38,1,.6,.62]});
+  S.set(11,9,6,'#e9e9e9',{stud:false,b:[.1,0,0,.9,.16,1]});
+  S.box(1,10,2,6,10,2,()=>S.j('#a8784a',.08));S.box(1,11,2,6,11,3,()=>S.j('#a8784a',.08));
+  villager(S,2,11,4,'#7a5230');villager(S,5,11,4,'#e0e0e0');alex(S,4,10,3);
+  const hay={dec:[['y',0,.2,1,.32,'#8a2a1a'],['y',0,.68,1,.8,'#8a2a1a'],['x',0,.2,1,.32,'#8a2a1a'],['x',0,.68,1,.8,'#8a2a1a']]};
+  S.set(13,10,2,'#d6b13a',hay);S.set(14,10,2,'#d6b13a',hay);S.set(14,11,2,'#d6b13a',hay);
+  return S},
+
+30757(){const S=new Scene(88);
+  ground(S,0,0,5,4,'#e6d69c','#d4c184');
+  for(let z=2;z<=4;z++)S.set(1,1,z,'#3d8b3d',{stud:z==4,dec:[['y',.2,.3,.3,.4,'#1f5a1f'],['y',.7,.65,.8,.75,'#1f5a1f'],['x',.3,.6,.4,.7,'#1f5a1f'],['x',.65,.25,.75,.35,'#1f5a1f']]});
+  S.set(5,0,2,'#8a6a3a',{stud:false,b:[.3,.3,0,.7,.7,.7]});
+  S.set(0,4,2,'#d9c68a');S.set(0,4,3,'#d9c68a',{dec:[['y',0,.4,1,.55,'#c2ad6e'],['x',0,.4,1,.55,'#c2ad6e']]});
+  husk(S,4,1,2);
+  steve(S,2,3,2);sword(S,3,3,3);
+  return S}
+};
+
+/* ---------- 卡片数据 ---------- */
+const SETS=[
+ {id:'21599',en:'The Forest Attack',zh:'森林突袭',pcs:'66',price:9.99,conf:['中','mid'],bg:['#bfe3ff','#eef8ff'],dark:false,
+  what:'一小块森林地台：一棵橡树、一张工作台、一朵红蘑菇，玩家拿着剑迎战僵尸。',
+  why:'9.99 美元、66 颗粒是最便宜的入门价位，和 21583 史蒂夫针叶林冒险（79 颗粒）是同一档，这种套装通常就是“一个小场景 + 一个玩家 + 一个怪物”。怪物我猜是僵尸，也可能是蜘蛛。'},
+ {id:'21600',en:'The Jungle Fort Skeleton Attack',zh:'丛林堡垒骷髅突袭',pcs:'175',price:14.99,conf:['中','mid'],bg:['#bfe8cf','#f0fbf2'],dark:false,
+  what:'长满藤蔓的苔石小塔楼，顶上是木平台，骷髅站在上面拉弓；旁边是一棵丛林树（有可可豆和鹦鹉），木桥连着塔楼，Alex 在下面进攻，还放了个西瓜。',
+  why:'名字里有“丛林”“堡垒”“骷髅”三样东西。骷髅是射手，放在高处防守最合理，所以我画成了塔楼加平台。'},
+ {id:'21601',en:'The Baby Wolf House',zh:'小狼崽之家',pcs:'205',price:19.99,conf:['中高','hi'],bg:['#cfe6ff','#f3f8ff'],dark:false,
+  what:'一座狼头造型的房子：白色墙、黑眼睛、突出的鼻子、两只耳朵、红项圈，侧面有门和窗。旁边有云杉、成年狼、戴蓝项圈的狼崽和一根骨头。',
+  why:'家里已经有的 21268 猪宝宝房屋，房子本身就是猪的造型，还带一只小猪。这次名字格式一模一样，所以我猜是狼头房子加一只狼崽。'},
+ {id:'21602',en:'The Blaze Battle Arena',zh:'烈焰人战斗竞技场',pcs:'182',price:19.99,conf:['中','mid'],bg:['#3a0f12','#7a2a1d'],dark:true,
+  what:'下界砖围起来的竞技场：角落有刷怪笼、岩浆池和火焰，烈焰人飘在中间，穿铁甲的玩家拿着盾牌和金剑应战，旁边还有宝箱。',
+  why:'烈焰人只出现在下界要塞里，所以场景八成是下界砖、岩浆和刷怪笼这一套红黑配色。'},
+ {id:'21603',en:'The Mineshaft Cave Expedition',zh:'矿井洞穴探险',pcs:'347',price:29.99,conf:['中','mid'],bg:['#1b2130','#3a4356'],dark:true,
+  what:'切开的洞穴：石墙里嵌着钻石、金、铁、红石、煤和紫水晶；中间是废弃矿井的木支架和铁轨，矿车里装着矿石，挂着灯笼；Steve 拿镐、Alex 提灯，角落有洞穴蜘蛛和小水塘。',
+  why:'“矿井 + 洞穴”基本等于木支架、铁轨、矿车和各种矿石（参考 21166 废弃矿井、21263 荒地矿井）；洞穴蜘蛛是游戏里废弃矿井特有的怪物，所以大概率会出现。'},
+ {id:'21604',en:'The Pig',zh:'猪',pcs:'397',price:39.99,conf:['中高','hi'],bg:['#ffe1e6','#fff6f1'],dark:false,
+  what:'一只用积木拼成的大号猪：方脑袋、粉色身体、猪鼻孔，背上有鞍，玩家骑在上面，前面是一片胡萝卜田。',
+  why:'家里已经有的 21588 狐狸也是 $39.99、497 颗粒、名字只有一个动物，21276 苦力怕也是同一路子。所以“猪”大概率也是一只砖拼的大号动物模型。鞍、骑手和胡萝卜田是我加的，因为游戏里骑猪就要用鞍和胡萝卜。'},
+ {id:'21606',en:'The Castle Joust',zh:'城堡骑士比武',pcs:'442',price:69.99,conf:['中','mid'],bg:['#a9d4ff','#f1f8ff'],dark:false,
+  what:'石头城墙、两座塔楼、城门和红蓝两色旗帜；中间是红白相间的比武隔栏，红队和蓝队骑士骑马、举着长矛对冲；前面有木看台，村民和 Alex 在看比赛，旁边有干草块。',
+  why:'这一波里最大的一款，名字就是“城堡 + 骑士比武”。游戏里新加了长矛，可以骑马冲刺，而乐高《我的世界》还没出过长矛，所以我猜马和长矛是重点。'},
+ {id:'30757',en:'The Desert Attack（名字未确定）',zh:'沙漠突袭（小包装）',pcs:'未知',price:null,conf:['低','lo'],bg:['#ffd9a3','#fff2da'],dark:false,
+  what:'一小块沙地：仙人掌、枯灌木、砂岩，玩家拿剑对战尸壳（沙漠里的僵尸）。',
+  why:'连名字都没确定，只知道是纸袋装的小包装，一般是赠品或很便宜的小袋子，所以画得最简单。'}
+];
+
+/* ---------- 心愿单（仅存在本机浏览器） ---------- */
+const KEY='cc-mc-2027-wish';
+let wish=new Set();
+try{wish=new Set(JSON.parse(localStorage.getItem(KEY)||'[]'))}catch(e){}
+function saveWish(){try{localStorage.setItem(KEY,JSON.stringify([...wish]))}catch(e){}}
+function updBar(){let n=0,p=0;SETS.forEach(s=>{if(wish.has(s.id)){n++;if(s.price)p+=s.price}});
+  document.getElementById('wn').textContent=n;document.getElementById('wp').textContent='$'+p.toFixed(2)}
+
+/* ---------- 生成页面 ---------- */
+const grid=document.getElementById('grid'),jobs=[];
+SETS.forEach(s=>{
+  const el=document.createElement('article');el.className='card';el.id='set-'+s.id;
+  el.innerHTML=`<canvas role="img" aria-label="${s.zh} 想象示意图"></canvas>
+  <div class="body">
+    <div class="top"><div><div class="num">${s.id}</div><h2>${s.zh}</h2><div class="en">${s.en}</div></div>
+      <button class="heart" aria-pressed="${wish.has(s.id)}">♥ 想要</button></div>
+    <div class="chips"><span class="chip">${s.pcs} 颗粒</span><span class="chip">${s.price?'$'+s.price.toFixed(2):'价格未知'}</span>
+      <span class="chip">猜测把握：<b class="conf-${s.conf[1]}">${s.conf[0]}</b></span></div>
+    <h3>图里画了什么</h3><p>${s.what}</p>
+    <h3>为什么这么猜</h3><p>${s.why}</p>
+  </div>`;
+  grid.appendChild(el);
+  const btn=el.querySelector('.heart');
+  btn.onclick=()=>{wish.has(s.id)?wish.delete(s.id):wish.add(s.id);btn.setAttribute('aria-pressed',wish.has(s.id));saveWish();updBar()};
+  const cv=el.querySelector('canvas');const S=SCENES[s.id]();
+  const job=()=>render(cv,S,s.bg,s.dark?'rgba(255,255,255,.6)':'rgba(0,0,0,.45)');
+  jobs.push(job);
+  if(window.ResizeObserver)new ResizeObserver(job).observe(cv);
+});
+jobs.forEach(j=>j());updBar();
+// 卡片是脚本生成的，从收藏总览跳过来时手动定位到对应套装
+if(location.hash){const t=document.getElementById(location.hash.slice(1));if(t)t.scrollIntoView({block:'start'})}
+</script>
+</body>
+</html>

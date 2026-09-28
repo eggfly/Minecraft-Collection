@@ -100,6 +100,24 @@
   .card.owned { border-color: #7ec850; }
   .card.not-owned { border-color: #555; opacity: 0.6; }
   .card.not-owned:hover { opacity: 0.9; }
+  .card.rumor { border-color: #c56cf0; border-style: dashed; }
+  .card-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: repeating-linear-gradient(45deg, #1f1a33, #1f1a33 14px, #251f3d 14px, #251f3d 28px);
+    color: #b9a3d9;
+    font-size: 0.9em;
+    text-decoration: none;
+  }
+  .card-placeholder .big { font-size: 2.4em; line-height: 1; }
+  .card-placeholder:hover { color: #e0c8ff; }
+  .badge-rumor { background: #3a1a3a; color: #c56cf0; }
+  .rumor-link { color: #c56cf0; }
   .card-img {
     width: 100%;
     aspect-ratio: 4/3;
@@ -258,7 +276,7 @@
 <body>
 
 <h1>晨晨家乐高我的世界收藏总览</h1>
-<p class="subtitle">LEGO Minecraft Collection Overview · 更新于 2026年4月29日</p>
+<p class="subtitle">LEGO Minecraft Collection Overview · 更新于 2026年9月28日 · <a class="rumor-link" href="2027-preview.html">2027 新品猜想图 →</a></p>
 
 <div class="stats-bar">
   <div class="stat-item">
@@ -281,6 +299,10 @@
     <div class="stat-num purple" id="totalValue">--</div>
     <div class="stat-label">原价总值 (¥)</div>
   </div>
+  <div class="stat-item">
+    <div class="stat-num purple" id="totalRumor">--</div>
+    <div class="stat-label">2027 预告</div>
+  </div>
 </div>
 
 <div class="legend">
@@ -289,6 +311,7 @@
   <div class="legend-item"><span class="legend-dot" style="background:#00d2d3"></span> 已拼好</div>
   <div class="legend-item"><span class="legend-dot" style="background:#ffa502"></span> 可能未拼</div>
   <div class="legend-item"><span class="legend-dot" style="background:#555"></span> 未购入</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#c56cf0"></span> 2027 预告（传闻）</div>
 </div>
 
 <div class="filter-bar">
@@ -297,6 +320,7 @@
   <button class="filter-btn" onclick="filterCards('retired')">绝版</button>
   <button class="filter-btn" onclick="filterCards('not-built')">可能未拼</button>
   <button class="filter-btn" onclick="filterCards('not-owned')">未购入</button>
+  <button class="filter-btn" onclick="filterCards('rumor')">2027 预告</button>
 </div>
 
 <div class="grid" id="cardGrid"></div>
@@ -324,7 +348,7 @@
 <div class="total-value" id="totalValueSection"></div>
 
 <footer>
-  数据来源：乐高官方 · BrickLink · 闲鱼市场估算 · 生成时间 2026-04-29
+  数据来源：乐高官方 · BrickLink · 闲鱼市场估算 · 生成时间 2026-04-29 · 2027 预告来自 StoneWars / Brick Fanatics / Brickset 爆料（2026-09-28，官方未确认）
 </footer>
 
 <script>
@@ -388,12 +412,22 @@ const sets = [
   { id: "21588", name: "狐狸", nameEn: "The Fox", year: 2026, pieces: 497, priceCNY: 288, retired: false, owned: true, assembled: null },
   { id: "21589", name: "迷你生物群系", nameEn: "Mini Biomes", year: 2026, pieces: 797, priceCNY: 432, retired: false, owned: true, assembled: false },
   { id: "21590", name: "凋灵之战", nameEn: "Wither Battle", year: 2026, pieces: 494, priceCNY: 468, retired: false, owned: true, assembled: false },
+  // 2027 预告：爆料清单（2026-09-28 整理），官方未公布；中文名暂译，¥ 按美元 ×7.2 估算
+  { id: "21599", name: "森林突袭", nameEn: "The Forest Attack", year: 2027, pieces: 66, priceUSD: 9.99, priceCNY: 72, retired: false, owned: null, assembled: null, rumor: true },
+  { id: "21600", name: "丛林堡垒骷髅突袭", nameEn: "The Jungle Fort Skeleton Attack", year: 2027, pieces: 175, priceUSD: 14.99, priceCNY: 108, retired: false, owned: null, assembled: null, rumor: true },
+  { id: "21601", name: "小狼崽之家", nameEn: "The Baby Wolf House", year: 2027, pieces: 205, priceUSD: 19.99, priceCNY: 144, retired: false, owned: null, assembled: null, rumor: true },
+  { id: "21602", name: "烈焰人战斗竞技场", nameEn: "The Blaze Battle Arena", year: 2027, pieces: 182, priceUSD: 19.99, priceCNY: 144, retired: false, owned: null, assembled: null, rumor: true },
+  { id: "21603", name: "矿井洞穴探险", nameEn: "The Mineshaft Cave Expedition", year: 2027, pieces: 347, priceUSD: 29.99, priceCNY: 216, retired: false, owned: null, assembled: null, rumor: true },
+  { id: "21604", name: "猪", nameEn: "The Pig", year: 2027, pieces: 397, priceUSD: 39.99, priceCNY: 288, retired: false, owned: null, assembled: null, rumor: true },
+  { id: "21606", name: "城堡骑士比武", nameEn: "The Castle Joust", year: 2027, pieces: 442, priceUSD: 69.99, priceCNY: 504, retired: false, owned: null, assembled: null, rumor: true },
+  { id: "30757", name: "沙漠突袭？", nameEn: "The Desert Attack? (polybag)", year: 2027, pieces: 0, priceUSD: null, priceCNY: null, retired: false, owned: null, assembled: null, rumor: true, note: "纸袋小包装，名称未定" },
 ];
 
 function renderCards() {
   const grid = document.getElementById("cardGrid");
   grid.innerHTML = "";
   sets.forEach(s => {
+    if (s.rumor) { grid.appendChild(renderRumorCard(s)); return; }
     const cardClass = s.owned === false ? "not-owned" : (s.retired ? "retired" : "owned");
     const assemblyStatus = getAssemblyStatus(s);
 
@@ -442,6 +476,38 @@ function renderCards() {
   });
 }
 
+function renderRumorCard(s) {
+  let badgesHTML = `<span class="badge badge-year">${s.year}年</span>`;
+  if (s.pieces > 0) badgesHTML += `<span class="badge badge-pieces">${s.pieces}颗粒</span>`;
+  badgesHTML += `<span class="badge badge-rumor">传闻 · 未上市</span>`;
+  if (s.note) badgesHTML += `<span class="badge badge-unknown">${s.note}</span>`;
+
+  const priceHTML = s.priceUSD
+    ? `<div class="price-row"><span class="price-original">$${s.priceUSD}</span> <span style="color:#888;font-size:0.85em">约 ¥${s.priceCNY}（估算）</span></div>`
+    : `<div class="price-row" style="color:#888">价格未知</div>`;
+
+  const card = document.createElement("div");
+  card.className = "card rumor";
+  card.dataset.owned = "unknown";
+  card.dataset.retired = "no";
+  card.dataset.assembled = "unknown";
+  card.dataset.rumor = "yes";
+  card.innerHTML = `
+    <a class="card-placeholder" href="2027-preview.html#set-${s.id}">
+      <span class="big">?</span>
+      <span>官方图未公布</span>
+      <span style="font-size:0.85em">点这里看想象示意图 →</span>
+    </a>
+    <div class="card-body">
+      <div class="card-set-id">#${s.id}</div>
+      <div class="card-title">${s.name} <span style="color:#888;font-weight:normal;font-size:0.85em">${s.nameEn}</span></div>
+      <div class="card-meta">${badgesHTML}</div>
+      ${priceHTML}
+    </div>
+  `;
+  return card;
+}
+
 function getAssemblyStatus(s) {
   if (s.assembled === true) return "assembled";
   if (s.assembled === false) return "not-built";
@@ -461,6 +527,7 @@ function filterCards(type) {
       case "not-built":
         show = card.dataset.owned === "yes" && card.dataset.assembled !== "yes"; break;
       case "not-owned": show = card.dataset.owned === "no"; break;
+      case "rumor": show = card.dataset.rumor === "yes"; break;
     }
     card.style.display = show ? "" : "none";
   });
@@ -500,6 +567,7 @@ function updateStats() {
   document.getElementById("totalNotBuilt").textContent = notBuilt.length;
   document.getElementById("totalNotOwned").textContent = notOwned.length;
   document.getElementById("totalValue").textContent = "¥" + totalOriginal.toLocaleString();
+  document.getElementById("totalRumor").textContent = sets.filter(s => s.rumor).length;
 
   const retiredOwned = sets.filter(s => s.retired && s.owned === true && s.resaleLow);
   const totalResaleLow = retiredOwned.reduce((sum, s) => sum + s.resaleLow, 0);
